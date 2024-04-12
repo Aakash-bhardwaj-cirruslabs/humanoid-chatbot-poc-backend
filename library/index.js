@@ -90,7 +90,7 @@ export const createEmbeddingsFromTxtFile = async (
 // createEmbeddingsFromTxtFile('tablename')
 
 export const fetchAnswerFromVectorStore = async (question, tableName) => {
-    const pgvectorStore = await InitializePGVector(tableName)
+    // const pgvectorStore = await InitializePGVector(tableName)
     const llm = new ChatOpenAI({ openAIApiKey: OPEN_AI_KEY })
     const vectorStoreRetriever = pgvectorStore.asRetriever()
 
