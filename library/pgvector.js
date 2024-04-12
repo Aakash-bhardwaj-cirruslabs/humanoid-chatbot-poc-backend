@@ -31,7 +31,7 @@ export const createPgVectorExtensionAndTable = async (
         await pool.query(`
             CREATE TABLE IF NOT EXISTS ${tableName} (
                 id SERIAL PRIMARY KEY,
-                vector vector(${dimensions}), -- Adjusted for vectors with ${dimensions} dimensions
+                vector vector(${dimensions}),
                 content TEXT,
                 metadata JSONB
             );
@@ -45,9 +45,9 @@ export const createPgVectorExtensionAndTable = async (
                     FROM   pg_class c
                     JOIN   pg_namespace n ON n.oid = c.relnamespace
                     WHERE  c.relname = 'idx_vector'
-                    AND    n.nspname = 'public'  -- Adjust if using a different schema
+                    AND    n.nspname = 'public'
                 ) THEN
-                    CREATE INDEX idx_vector ON testlangchain USING ivfflat (vector vector_l2_ops);
+                    CREATE INDEX idx_vector ON ${tableName} USING ivfflat (vector vector_l2_ops);
                 END IF;
             END
             $$;
