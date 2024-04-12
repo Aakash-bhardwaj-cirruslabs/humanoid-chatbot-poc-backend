@@ -1,15 +1,13 @@
 services:
-    pgvector_db:
+    pgvectordb:
         image: pgvector/pgvector:pg16
-        container_name: pgvector_db
+        container_name: pgvectordb
         ports:
             - '5432:5432'
         environment:
             POSTGRES_PASSWORD: Aakash@2704 # Change this to your desired password
             POSTGRES_USER: admin # Change this to your desired user name
             POSTGRES_DB: admin # Change this to your desired database name
-        volumes:
-            - pgvector_data:/var/lib/postgresql/data
 
 volumes:
     pgvector_data:
