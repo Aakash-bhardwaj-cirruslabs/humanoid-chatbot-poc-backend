@@ -16,7 +16,7 @@ app.use(express.json())
 // To simulate __dirname behavior in ES Module
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-app.use(express.static(path.join(__dirname, 'build')))
+// app.use(express.static(path.join(__dirname, 'build')))
 
 // Handles any requests that don't match the ones above
 app.get('/iframe', (req, res) => {
