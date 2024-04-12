@@ -25,7 +25,7 @@ app.get('/iframe', (req, res) => {
 
 // Root route
 app.get('/', (req, res) => {
-    res.send('Welcome to the CirrusAI API!')
+    res.send('access denied')
 })
 
 app.get('/registerChatBot/:tableName', async (req, res) => {
