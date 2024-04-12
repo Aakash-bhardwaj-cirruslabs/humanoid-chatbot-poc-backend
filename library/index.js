@@ -18,7 +18,7 @@ import { PGVectorStore } from '@langchain/community/vectorstores/pgvector'
 import pg from 'pg'
 import { createPgVectorExtensionAndTable } from './pgvector.js'
 const { Pool } = pg
-const tableName = 'cirrusLabs'
+const tableName = 'monyble'
 const dimensions = 1536
 // Configuration for PostgreSQL connection
 const pgPoolConfig = {
@@ -42,41 +42,34 @@ const OPEN_AI_KEY = process.env.OPEN_AI_KEY
 // Initialize PGVectorStore
 const pgPool = new Pool(pgPoolConfig)
 const embeddings = new OpenAIEmbeddings({ openAIApiKey: OPEN_AI_KEY })
-
-const InitializePGVector = async (tableName) => {
-    const config = {
-        postgresConnectionOptions: {
-            type: 'postgres',
-            user: process.env.PG_USER,
-            host: process.env.PG_HOST,
-            database: process.env.PG_DATABASE,
-            password: process.env.PG_PASSWORD,
-            port: parseInt(process.env.PG_PORT, 10),
-            tableName: tableName,
-        },
+const config = {
+    postgresConnectionOptions: {
+        type: 'postgres',
+        user: process.env.PG_USER,
+        host: process.env.PG_HOST,
+        database: process.env.PG_DATABASE,
+        password: process.env.PG_PASSWORD,
+        port: parseInt(process.env.PG_PORT, 10),
         tableName: tableName,
-        columns: {
-            idColumnName: 'id',
-            vectorColumnName: 'vector',
-            contentColumnName: 'content',
-            metadataColumnName: 'metadata',
-        },
-        // supported distance strategies: cosine (default), innerProduct, or euclidean
-        distanceStrategy: 'cosine',
-    }
-
-    const pgvectorStore = new PGVectorStore(embeddings, config)
-    return pgvectorStore
+    },
+    tableName: tableName,
+    columns: {
+        idColumnName: 'id',
+        vectorColumnName: 'vector',
+        contentColumnName: 'content',
+        metadataColumnName: 'metadata',
+    },
+    // supported distance strategies: cosine (default), innerProduct, or euclidean
+    distanceStrategy: 'cosine',
 }
-
 export const cachedData = []
-
+const pgvectorStore = new PGVectorStore(embeddings, config)
 export const createEmbeddingsFromTxtFile = async (
     textdata,
     filePath,
     tableName
 ) => {
-    const pgvectorStore = await InitializePGVector(tableName)
+    // const pgvectorStore = await InitializePGVector(tableName)
     try {
         //const text = await fs.readFile('./trainingData/data.txt', 'utf8')
         const text = textdata ?? (await fs.readFile(filePath, 'utf8'))
@@ -94,6 +87,7 @@ export const createEmbeddingsFromTxtFile = async (
         console.log(error)
     }
 }
+// createEmbeddingsFromTxtFile('tablename')
 
 export const fetchAnswerFromVectorStore = async (question, tableName) => {
     const pgvectorStore = await InitializePGVector(tableName)
