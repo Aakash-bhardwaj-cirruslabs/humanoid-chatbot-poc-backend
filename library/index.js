@@ -18,7 +18,7 @@ import { PGVectorStore } from '@langchain/community/vectorstores/pgvector'
 import pg from 'pg'
 import { createPgVectorExtensionAndTable } from './pgvector.js'
 const { Pool } = pg
-const tableName = 'monyble'
+const tableName = 'deloitte_demo'
 const dimensions = 1536
 // Configuration for PostgreSQL connection
 const pgPoolConfig = {
@@ -71,8 +71,11 @@ export const createEmbeddingsFromTxtFile = async (
 ) => {
     // const pgvectorStore = await InitializePGVector(tableName)
     try {
-        //const text = await fs.readFile('./trainingData/data.txt', 'utf8')
-        const text = textdata ?? (await fs.readFile(filePath, 'utf8'))
+        const text = await fs.readFile(
+            './trainingData/deloitteData.txt',
+            'utf8'
+        )
+        //const text = textdata ?? (await fs.readFile(filePath, 'utf8'))
 
         const splitter = new RecursiveCharacterTextSplitter({
             chunkSize: 500,
@@ -87,8 +90,9 @@ export const createEmbeddingsFromTxtFile = async (
         console.log(error)
     }
 }
-// createEmbeddingsFromTxtFile('tablename')
 
+//createEmbeddingsFromTxtFile('tablename')
+//createPgVectorExtensionAndTable(tableName, dimensions)
 export const fetchAnswerFromVectorStore = async (question, tableName) => {
     // const pgvectorStore = await InitializePGVector(tableName)
     const llm = new ChatOpenAI({ openAIApiKey: OPEN_AI_KEY })

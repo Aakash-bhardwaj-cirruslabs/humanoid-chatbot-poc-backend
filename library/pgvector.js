@@ -6,7 +6,6 @@ const { Pool } = pg
 const apiRecords = [
     { apiKey: 'demo', tableName: 'demo' },
     { apiKey: 'cirrusLabs', tableName: 'cirrusLabs' },
-    { apiKey: 'monyble', tableName: 'monyble' },
 ]
 // Configuration for PostgreSQL connection
 const pgPoolConfig = {

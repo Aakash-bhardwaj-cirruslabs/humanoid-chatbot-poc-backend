@@ -19,9 +19,9 @@ const __dirname = path.dirname(__filename)
 // app.use(express.static(path.join(__dirname, 'build')))
 
 // Handles any requests that don't match the ones above
-app.get('/iframe', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'))
-})
+// app.get('/iframe', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'))
+// })
 
 // Root route
 app.get('/', (req, res) => {

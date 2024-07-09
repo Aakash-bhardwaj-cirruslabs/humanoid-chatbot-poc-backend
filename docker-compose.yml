@@ -7,7 +7,7 @@ services:
         ports:
             - '5432:5432'
         environment:
-            POSTGRES_PASSWORD: Aakash@2704 # Change this to your desired password
+            POSTGRES_PASSWORD: admin # Change this to your desired password
             POSTGRES_USER: admin # Change this to your desired user name
             POSTGRES_DB: admin # Change this to your desired database name
         volumes:
